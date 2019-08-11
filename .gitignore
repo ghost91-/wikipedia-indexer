@@ -1,0 +1,17 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/wikipedia-indexer
+wikipedia-indexer.so
+wikipedia-indexer.dylib
+wikipedia-indexer.dll
+wikipedia-indexer.a
+wikipedia-indexer.lib
+wikipedia-indexer-test-*
+*.exe
+*.o
+*.obj
+*.lst
+.vscode
+data

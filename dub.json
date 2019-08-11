@@ -1,0 +1,12 @@
+{
+    "authors": [
+        "Johannes Loher"
+    ],
+    "copyright": "Copyright © 2019, Johannes Loher",
+    "description": "A tool to create indices for Wikipedia pages.",
+    "license": "MIT",
+    "name": "wikipedia-indexer",
+    "dependencies": {
+        "dxml": "~>0.4.0"
+    }
+}
