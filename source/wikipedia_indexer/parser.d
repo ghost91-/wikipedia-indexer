@@ -22,9 +22,9 @@ auto parse(R)(R input, size_t numberOfPages)
         .filter!(titleAndRevision => titleAndRevision.revision.hasElement("username"))
         .map!(titleAndRevision => tuple!("username",
                 "title")(titleAndRevision.revision.findElement("username"), titleAndRevision.title))
-        .enumerate(1).tee!((e) {
-            if (e.index % 1_000 == 0)
-                infof("Parsed pages: %s", e.index);
+        .enumerate(1).tee!((enumeratedUsernameAndTitle) {
+            if (enumeratedUsernameAndTitle.index % 1_000 == 0)
+                tracef("Parsed pages: %s", enumeratedUsernameAndTitle.index);
         });
     alias ParsedElementType = ElementType!(typeof(parserRange));
     scope merge = (ParsedElementType e) {

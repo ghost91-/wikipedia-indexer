@@ -10,6 +10,7 @@ struct Arguments
     string inputFileName;
     string outputFileName;
     size_t numberOfPages;
+    bool verbose;
 }
 
 auto handleArguments(string[] args)
@@ -49,6 +50,7 @@ auto parseArguments(string[] args)
     string inputFileName;
     string outputFileName;
     size_t numberOfPages;
+    bool verbose;
 
     auto getoptResult = getopt(args, config.required, "input|i",
             "The name of the file to read the data from.", &inputFileName,
@@ -56,10 +58,10 @@ auto parseArguments(string[] args)
             "The name of the file to write the index to.",
             &outputFileName, "pages|p",
             "The number of pages to process. If set to 0, all pages are processed.",
-            &numberOfPages);
+            &numberOfPages, "verbose|v", "Use verbose output.", &verbose);
 
     return tuple!("helpInformation", "arguments")(getoptResult,
-            Arguments(inputFileName, outputFileName, numberOfPages));
+            Arguments(inputFileName, outputFileName, numberOfPages, verbose));
 }
 
 void printHelp(string executableName, GetoptResult getoptResult)

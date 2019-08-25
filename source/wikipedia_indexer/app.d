@@ -12,6 +12,7 @@ import wikipedia_indexer.parser;
 void main(string[] args)
 {
     auto arguments = handleArguments(args);
+    globalLogLevel = arguments.verbose ? LogLevel.all : LogLevel.info;
 
     infof(`Parsing file "%s".`, arguments.inputFileName);
     auto result = MmFileRange(arguments.inputFileName).parse(arguments.numberOfPages);
