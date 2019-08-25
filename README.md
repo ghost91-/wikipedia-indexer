@@ -14,6 +14,13 @@ application by running the following on the commandline:
 dub build
 ```
 
+If performance matters (e.g. if you are running the tool on a complete Wikipedia
+dump), it is advised to use LDC and  build the application in release mode:
+
+```
+dub build -b release
+```
+
 ## Usage
 
 ```
