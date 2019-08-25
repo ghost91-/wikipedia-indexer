@@ -22,5 +22,5 @@ void main(string[] args)
 
     infof(`Writing index to "%s".`, arguments.outputFileName);
     auto output = File(arguments.outputFileName, "w");
-    sorted.each!(e => output.writeln(e.key, ";", e.value[].joiner(", ")));
+    sorted.each!(e => output.writeln(e.key, ">", e.value[].joiner("|")));
 }
