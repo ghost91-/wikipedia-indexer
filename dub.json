@@ -11,12 +11,8 @@
     },
     "mainSourceFile": "source/main/wikipedia_indexer/app.d",
     "targetType": "executable",
-    "importPaths": [
-        "source/main"
-    ],
-    "sourcePaths": [
-        "source/main"
-    ],
+    "sourcePaths": ["source/main"],
+    "importPaths": ["source/main"],
     "configurations": [
         {
             "name": "application"
@@ -31,10 +27,7 @@
             "mainSourceFile": ".generated/ut.d",
             "targetName": "wikipedia-indexer-test-application",
             "sourcePaths": ["source/main", "source/test"],
-            "importPaths": [
-                "source/main",
-                "source/test"
-            ]
+            "importPaths": ["source/main", "source/test"]
         }
     ]
 }
