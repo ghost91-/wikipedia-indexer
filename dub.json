@@ -10,5 +10,6 @@
         "dxml": "~>0.4.0",
         "fluent-asserts": "~>0.12.5"
     },
-    "mainSourceFile": "source/wikipedia_indexer/app.d"
+    "mainSourceFile": "source/wikipedia_indexer/app.d",
+    "targetType": "executable"
 }
