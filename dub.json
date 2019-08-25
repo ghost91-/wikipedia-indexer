@@ -7,6 +7,8 @@
     "license": "MIT",
     "name": "wikipedia-indexer",
     "dependencies": {
-        "dxml": "~>0.4.0"
-    }
+        "dxml": "~>0.4.0",
+        "fluent-asserts": "~>0.12.5"
+    },
+    "mainSourceFile": "source/wikipedia_indexer/app.d"
 }
