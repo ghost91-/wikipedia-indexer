@@ -128,3 +128,36 @@ auto merge(T)(HashSet!T[T] existingEntries, Tuple!(T, "username", T, "title") ne
     existingEntries.update(newEntry.username, create, update);
     return existingEntries;
 }
+
+unittest
+{
+    import fluent.asserts : should;
+    import std.file : read;
+    import std.utf : byCodeUnit;
+
+    // given
+    auto data = cast(immutable(char)[]) read("test_data/test_data_1.xml");
+
+    // when
+    auto result = data.byCodeUnit.parse(0);
+
+    // then
+    result.byKey.should.containOnly(["Thrashbandicoot01", "Bananabones",
+            "Beyond My Ken", "Nat965", "FoxyGrampa75", "Shivertimbers433",
+            "Godsy", "CASSIOPEIA", "Tom.Reding", "Starcheerspeaksnewslostwars",
+            "Kailash29792", "Алексей Густов", "Fucherastonmeym87"]);
+    result["Thrashbandicoot01"][].should.containOnly(["Colt Gilliam"]);
+    result["Bananabones"][].should.containOnly(["File:Kerang (Borough) Council 1994.jpg"]);
+    result["Beyond My Ken"][].should.containOnly(["Anarchism"]);
+    result["Nat965"][].should.containOnly(["No te puedes esconder"]);
+    result["FoxyGrampa75"][].should.containOnly(["Manchester North West"]);
+    result["Shivertimbers433"][].should.containOnly(["Riley Stearns"]);
+    result["Godsy"][].should.containOnly(["AccessibleComputing"]);
+    result["CASSIOPEIA"][].should.containOnly(["Draft:National Rally Championship"]);
+    result["Tom.Reding"][].should.containOnly(["AfghanistanPeople",
+            "AfghanistanGeography", "AfghanistanHistory"]);
+    result["Starcheerspeaksnewslostwars"][].should.containOnly(["Beach Fossils (Album)"]);
+    result["Kailash29792"][].should.containOnly(["Ian Quinn (Agents of S.H.I.E.L.D.)"]);
+    result["Алексей Густов"][].should.containOnly(["Sofie Marmont-Nordlund"]);
+    result["Fucherastonmeym87"][].should.containOnly(["File:SDSS NGC 4305.jpg"]);
+}

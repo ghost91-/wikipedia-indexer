@@ -4,3 +4,38 @@
 [![License](https://img.shields.io/github/license/ghost91-/wikipedia-indexer?color=blue)](https://github.com/ghost91-/wikipedia-indexer/blob/master/LICENSE)
 
 A tool to create indices for Wikipedia pages.
+
+## Building
+
+Building requires DUB and a recent version of DMD or LDC. You can build the
+application by running the following on the commandline:
+
+```
+dub build
+```
+
+## Usage
+
+```
+Usage: ./wikipedia-indexer [options] 
+
+Options:
+-i  --input Required: The name of the file to read the data from.
+-o --output Required: The name of the file to write the index to.
+-p  --pages           The number of pages to process. If set to 0, all pages are processed.
+-h   --help           This help information.
+```
+
+## Running the tests
+
+You can run the test by running the following on the commandline:
+
+```
+dub test
+```
+
+## Acknowledgments
+
+Part of the test data is exported from [Wikipedia](https://www.wikipedia.org/)
+and licensed under [Creative Commons Attribution-ShareAlike 3.0](https://creativecommons.org/licenses/by-sa/3.0/legalcode).
+
