@@ -7,9 +7,34 @@
     "license": "MIT",
     "name": "wikipedia-indexer",
     "dependencies": {
-        "dxml": "~>0.4.0",
-        "fluent-asserts": "~>0.12.5"
+        "dxml": "~>0.4.0"
     },
-    "mainSourceFile": "source/wikipedia_indexer/app.d",
-    "targetType": "executable"
+    "mainSourceFile": "source/main/wikipedia_indexer/app.d",
+    "targetType": "executable",
+    "importPaths": [
+        "source/main"
+    ],
+    "sourcePaths": [
+        "source/main"
+    ],
+    "configurations": [
+        {
+            "name": "application"
+        },
+        {
+            "name": "unittest",
+            "dependencies": {
+                "unit-threaded": "~>0.10.3"
+            },
+            "preBuildCommands": ["dub run unit-threaded -c gen_ut_main -- -f .generated/ut.d"],
+            "excludedSourceFiles": ["source/main/wikipedia_indexer/app.d"],
+            "mainSourceFile": ".generated/ut.d",
+            "targetName": "wikipedia-indexer-test-application",
+            "sourcePaths": ["source/main", "source/test"],
+            "importPaths": [
+                "source/main",
+                "source/test"
+            ]
+        }
+    ]
 }
