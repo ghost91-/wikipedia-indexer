@@ -8,6 +8,8 @@ import std.typecons;
 import std.experimental.logger;
 import wikipedia_indexer.hashset;
 
+public:
+
 auto parse(R)(R input, size_t numberOfPages)
         if (isForwardRange!R && isSomeChar!(ElementType!R))
 {
@@ -88,6 +90,8 @@ unittest
     result["SomeOtherUserName"][].should.containOnly(["SomeTitle"]);
     result["SomeUserName"][].should.containOnly(["SomeOtherTitle"]);
 }
+
+private:
 
 bool hasElement(R)(R r, string element)
 {
