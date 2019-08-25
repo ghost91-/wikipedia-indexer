@@ -136,7 +136,7 @@ unittest
     import std.utf : byCodeUnit;
 
     // given
-    auto data = cast(immutable(char)[]) read("test_data/test_data_1.xml");
+    auto data = cast(string) read("test_data/test_data_1.xml");
 
     // when
     auto result = data.byCodeUnit.parse(0);
