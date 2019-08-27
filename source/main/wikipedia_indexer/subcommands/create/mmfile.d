@@ -1,9 +1,11 @@
-module wikipedia_indexer.mmfile;
+module wikipedia_indexer.subcommands.create.mmfile;
 
-import std.mmfile : MmFile;
+package:
 
 struct MmFileRange
 {
+    import std.mmfile : MmFile;
+
 private:
     MmFile mmFile;
     size_t index = 0;
@@ -12,7 +14,8 @@ private:
 public:
     this(string fileName)
     {
-        mmFile = new MmFile(fileName, MmFile.Mode.read, 0, null, 4096 * 1_000_000);
+        mmFile = new MmFile(fileName, MmFile.Mode.read, 0, null,
+                largestMultipleOfSmallerThan(4096, 1_000_000));
         reverseIndex = mmFile.length;
     }
 
@@ -77,4 +80,11 @@ public:
         copy.index += a;
         return copy;
     }
+}
+
+private:
+
+T largestMultipleOfSmallerThan(T)(T a, T b)
+{
+    return a * (b / a);
 }

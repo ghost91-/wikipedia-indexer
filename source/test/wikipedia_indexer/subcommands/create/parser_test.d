@@ -1,11 +1,11 @@
-module wikipedia_indexer.parser_test;
+module wikipedia_indexer.subcommands.create.parser_test;
 
 unittest
 {
     import std.file : read;
     import std.utf : byCodeUnit;
     import unit_threaded.should : shouldBeSameSetAs;
-    import wikipedia_indexer.parser : parse;
+    import wikipedia_indexer.subcommands.create.parser : parse;
 
     // given
     auto data = cast(string) read("test_data/test_data_1.xml");

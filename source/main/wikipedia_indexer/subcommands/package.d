@@ -1,0 +1,10 @@
+module wikipedia_indexer.subcommands;
+
+static immutable void function(string[])[string] subcommands;
+
+shared static this()
+{
+    import wikipedia_indexer.subcommands.create : create;
+
+    subcommands = ["create" : &create];
+}

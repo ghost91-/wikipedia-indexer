@@ -24,13 +24,27 @@ dub build -b release
 ## Usage
 
 ```
-Usage: ./wikipedia-indexer [options] 
+Usage: ./wikipedia-indexer [global options] [subcommand] [options] 
+
+Commands:
+create  Create an index for a Wikipedia dump.
+
+Global options:
+-V --version Print version info and exit.
+-h    --help This help information.
+```
+
+### Creating an index
+
+```
+Usage: ./wikipedia-indexer create [options] 
 
 Options:
--i  --input Required: The name of the file to read the data from.
--o --output Required: The name of the file to write the index to.
--p  --pages           The number of pages to process. If set to 0, all pages are processed.
--h   --help           This help information.
+-i   --input Required: The name of the file to read the data from.
+-o  --output Required: The name of the file to write the index to.
+-p   --pages           The number of pages to process. If set to 0, all pages are processed.
+-v --verbose           Use verbose output.
+-h    --help           This help information.
 ```
 
 ## Running the tests

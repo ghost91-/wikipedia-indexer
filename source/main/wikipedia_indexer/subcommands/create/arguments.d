@@ -1,9 +1,9 @@
-module wikipedia_indexer.arguments;
+module wikipedia_indexer.subcommands.create.arguments;
 
 import core.stdc.stdlib : exit;
-import std.format : format;
-import std.getopt : config, defaultGetoptPrinter, getopt, GetOptException, GetoptResult;
-import std.stdio : writeln;
+import std.getopt;
+
+package:
 
 struct Arguments
 {
@@ -33,8 +33,9 @@ auto handleArguments(string[] args)
     }
     catch (GetOptException e)
     {
-        writeln("Skipping execution because there was an error while trying to parse the commandline options: ",
-                e.msg);
+        import std.stdio : writeln;
+
+        writeln("Error while trying to parse the commandline options: ", e.msg);
         printHelp(executableName, [executableName, "-h"].parseArguments.helpInformation);
         exit(1);
     }
@@ -52,12 +53,11 @@ auto parseArguments(string[] args)
     size_t numberOfPages;
     bool verbose;
 
-    auto getoptResult = getopt(args, config.required, "input|i",
-            "The name of the file to read the data from.", &inputFileName,
-            config.required, "output|o",
+    auto getoptResult = getopt(args, config.caseSensitive,
+            config.required, "input|i", "The name of the file to read the data from.",
+            &inputFileName, config.required, "output|o",
             "The name of the file to write the index to.",
-            &outputFileName, "pages|p",
-            "The number of pages to process. If set to 0, all pages are processed.",
+            &outputFileName, "pages|p", "The number of pages to process. If set to 0, all pages are processed.",
             &numberOfPages, "verbose|v", "Use verbose output.", &verbose);
 
     return tuple!("helpInformation", "arguments")(getoptResult,
@@ -66,6 +66,8 @@ auto parseArguments(string[] args)
 
 void printHelp(string executableName, GetoptResult getoptResult)
 {
-    defaultGetoptPrinter(format!"Usage: %s [options] \n\nOptions:"(executableName),
+    import std.format : format;
+
+    defaultGetoptPrinter(format!"Usage: %s create [options] \n\nOptions:"(executableName),
             getoptResult.options);
 }

@@ -1,4 +1,6 @@
-module wikipedia_indexer.hashset;
+module wikipedia_indexer.subcommands.create.hashset;
+
+package:
 
 struct HashSet(T)
 {

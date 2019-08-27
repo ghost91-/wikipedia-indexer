@@ -1,18 +1,19 @@
-module wikipedia_indexer.parser;
+module wikipedia_indexer.subcommands.create.parser;
 
 import dxml.parser;
 import std.algorithm;
 import std.range;
-import std.traits;
+import std.traits : isSomeChar;
 import std.typecons;
-import std.experimental.logger;
-import wikipedia_indexer.hashset;
+import wikipedia_indexer.subcommands.create.hashset : HashSet;
 
-public:
+package:
 
 auto parse(R)(R input, size_t numberOfPages)
         if (isForwardRange!R && isSomeChar!(ElementType!R))
 {
+    import std.experimental.logger : tracef;
+
     alias stringType = immutable(ElementType!R)[];
 
     HashSet!stringType[stringType] articlesPerAuthor;
