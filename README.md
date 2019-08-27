@@ -28,6 +28,7 @@ Usage: ./wikipedia-indexer [global options] [subcommand] [options]
 
 Commands:
 create  Create an index for a Wikipedia dump.
+ query  Query an existing index.
 
 Global options:
 -V --version Print version info and exit.
@@ -45,6 +46,17 @@ Options:
 -p   --pages           The number of pages to process. If set to 0, all pages are processed.
 -v --verbose           Use verbose output.
 -h    --help           This help information.
+```
+
+### Querying an existing index
+
+```
+Usage: ./wikipedia-indexer query [options] 
+
+Options:
+-i  --input Required: The name of the file to read the data from.
+-s --search Required: The string to search for.
+-h   --help           This help information.
 ```
 
 ## Running the tests

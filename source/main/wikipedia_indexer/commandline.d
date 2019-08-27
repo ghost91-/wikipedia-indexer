@@ -21,7 +21,7 @@ void handleArguments(string[] args)
         }
         else
         {
-            (*subcommand)(helpInformationAndArguments.unparsedArguments);
+            return (*subcommand)(helpInformationAndArguments.unparsedArguments);
         }
     }
     catch (GetOptException e)
@@ -90,8 +90,10 @@ void printHelp(string executableName, GetoptResult getoptResult)
 {
     import std.format : format;
 
-    defaultGetoptPrinter(format!"Usage: %s [global options] [subcommand] [options] \n\nCommands:"(executableName),
-            [Option("create", null, "Create an index for a Wikipedia dump.", false)]);
+    defaultGetoptPrinter(format!"Usage: %s [global options] [subcommand] [options] \n\nCommands:"(
+            executableName), [Option("create", null,
+            "Create an index for a Wikipedia dump.",
+            false), Option("query", null, "Query an existing index.", false)]);
     defaultGetoptPrinter("\nGlobal options:", getoptResult.options);
 }
 
