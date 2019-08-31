@@ -18,14 +18,10 @@ auto parse(R)(R input, size_t numberOfPages)
 
     HashSet!stringType[stringType] articlesPerAuthor;
 
-    auto parserRange = input.parseXML.splitAtElement("page")
-        .map!(findTitleAndLatestRevisionForPage)
-        .filter!(titleAndRevision => titleAndRevision.revision.hasElement("username"))
-        .map!(titleAndRevision => tuple!("username",
-                "title")(titleAndRevision.revision.findElement("username"), titleAndRevision.title))
-        .enumerate(1).tee!((enumeratedUsernameAndTitle) {
-            if (enumeratedUsernameAndTitle.index % 1_000 == 0)
-                tracef("Parsed pages: %s", enumeratedUsernameAndTitle.index);
+    auto parserRange = input.parseXML.splitAtElement("page").map!(parsePage)
+        .enumerate(1).tee!((enumeratedPage) {
+            if (enumeratedPage.index % 1_000 == 0)
+                tracef("Parsed pages: %s", enumeratedPage.index);
         });
     alias ParsedElementType = ElementType!(typeof(parserRange));
     scope merge = (ParsedElementType e) {
@@ -94,11 +90,6 @@ unittest
 
 private:
 
-bool hasElement(R)(R r, string element)
-{
-    return r.canFind!(e => e.type == EntityType.elementStart && e.name.equal(element));
-}
-
 auto findElement(R)(R r, string element)
 {
     return r.find!(e => e.type == EntityType.elementStart
@@ -110,22 +101,34 @@ auto splitAtElement(R)(R r, string element)
     return r.splitter!(e => e.type == EntityType.elementStart && e.name.equal(element)).drop(1);
 }
 
-auto findTitleAndLatestRevisionForPage(R)(R page)
+struct Page
 {
-    immutable title = page.findElement("title");
-    auto revision = page.splitAtElement("revision")
-        .maxElement!(revision => revision.findElement("timestamp"));
+    string title;
+    Revision latestRevision;
 
-    return tuple!("title", "revision")(title, revision);
+    static struct Revision
+    {
+        string author;
+        string _body;
+    }
 }
 
-auto merge(T)(HashSet!T[T] existingEntries, Tuple!(T, "username", T, "title") newEntry)
+Page parsePage(R)(R pageXML)
+{
+    immutable title = pageXML.findElement("title");
+    auto latestRevisionXML = pageXML.splitAtElement("revision")
+        .maxElement!(revision => revision.findElement("timestamp"));
+    immutable author = latestRevisionXML.findElement("username");
+    return Page(title, Page.Revision(author, null));
+}
+
+auto merge(T)(HashSet!T[T] existingEntries, Page newEntry)
 {
     scope create = () => HashSet!T(newEntry.title);
     scope update = (scope ref HashSet!T titles) {
         titles.add(newEntry.title);
         return titles;
     };
-    existingEntries.update(newEntry.username, create, update);
+    existingEntries.update(newEntry.latestRevision.author, create, update);
     return existingEntries;
 }
